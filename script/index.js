@@ -64,3 +64,47 @@ function toggleStyle(id) {
 		checkCardContainer();
 	}
 }
+
+function checkCardContainer() {
+	if (cardContainer.children.length === 0) {
+		cardContainer.innerHTML = `
+			<div class="max-w-[1110px] mx-auto flex flex-col justify-center items-center h-screen">
+				<div class="mb-5">
+					<i class="fa-regular fa-file-lines text-[80px] text-[#7DA8FF]"></i>
+				</div>
+				<h2 class="font-semibold text-2xl text-[#002C5C] mb-1">
+					No jobs available
+				</h2>
+				<p class="font-normal text-base text-[#64748B]">
+					Check back soon for new job opportunities
+				</p>
+			</div>
+		`;
+		return true;
+	} else {
+		const noJobs = cardContainer.querySelector(".no-jobs");
+		if (noJobs) {
+			noJobs.remove();
+			return false;
+		}
+	}
+}
+
+function checkFilterEmpty(list) {
+	if (list.length === 0) {
+		filterSection.innerHTML = `
+			<div class="max-w-[1110px] mx-auto flex flex-col justify-center items-center h-screen">
+				<div class="mb-5">
+					<i class="fa-regular fa-file-lines text-[80px] text-[#7DA8FF]"></i>
+				</div>
+				<h2 class="font-semibold text-2xl text-[#002C5C] mb-1">
+					No jobs available
+				</h2>
+				<p class="font-normal text-base text-[#64748B]">
+					Check back soon for new job opportunities
+				</p>
+			</div>
+		`;
+		return true;
+	}
+}
