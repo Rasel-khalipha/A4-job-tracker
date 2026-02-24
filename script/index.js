@@ -123,3 +123,136 @@ function updateToggle() {
 		checkCardContainer();
 	}
 }
+
+function cardsContain(event) {
+	if (event.target.closest(".fa-trash-can")) {
+		const parentNode = event.target.closest(".cards");
+		if (!parentNode) {
+			return;
+		}
+
+		const companyName = parentNode.querySelector(".company-name").innerText;
+
+		const newInterviewList = [];
+		for (const item of interviewList) {
+			if (item.companyName !== companyName) {
+				newInterviewList.push(item);
+			}
+		}
+		interviewList = newInterviewList;
+
+		const newRejectedList = [];
+		for (const item of rejectedList) {
+			if (item.companyName !== companyName) {
+				newRejectedList.push(item);
+			}
+		}
+		rejectedList = newRejectedList;
+
+		if (allBtn.classList.contains("btn-primary")) {
+			parentNode.remove();
+			count("all");
+			checkCardContainer();
+		} else {
+			updateToggle();
+		}
+
+		return;
+	}
+
+	const parentNode = event.target.closest(".cards");
+	if (!parentNode) {
+		return;
+	}
+
+	const companyName = parentNode.querySelector(".company-name").innerText;
+	const position = parentNode.querySelector(".position").innerText;
+	const location = parentNode.querySelector(".location").innerText;
+	const type = parentNode.querySelector(".type").innerText;
+	const salary = parentNode.querySelector(".salary").innerText;
+	const para = parentNode.querySelector(".description").innerText;
+
+	const cardInfo = {
+		companyName,
+		position,
+		location,
+		type,
+		salary,
+		para,
+	};
+
+	let availableData = !Object.values(cardInfo).includes("");
+	let isDuplicate = false;
+
+	if (event.target.classList.contains("interview")) {
+		let moveItem = null;
+		const newRejectedList = [];
+		for (const item of rejectedList) {
+			if (item.companyName === cardInfo.companyName) {
+				moveItem = item;
+			} else {
+				newRejectedList.push(item);
+			}
+		}
+		rejectedList = newRejectedList;
+
+		for (let item of interviewList) {
+			if (item.companyName === cardInfo.companyName) {
+				isDuplicate = true;
+				break;
+			}
+		}
+
+		if (moveItem) {
+			moveItem.statusBtn = "interview";
+			interviewList.push(moveItem);
+		} else if (availableData && !isDuplicate) {
+			cardInfo.statusBtn = "interview";
+			interviewList.push(cardInfo);
+		}
+		parentNode.classList.remove("rejected-border");
+		parentNode.classList.add("interview-border");
+		parentNode.querySelector(".status-btn").className =
+			"status-btn btn font-medium text-sm uppercase mb-2 btn-outline btn-success";
+		parentNode.querySelector(".status-btn").innerText = "interview";
+
+		updateToggle();
+	} else if (event.target.classList.contains("rejected")) {
+		let moveItem = null;
+		const newInterviewList = [];
+		for (const item of interviewList) {
+			if (item.companyName === cardInfo.companyName) {
+				moveItem = item;
+			} else {
+				newInterviewList.push(item);
+			}
+		}
+		interviewList = newInterviewList;
+
+		for (let item of rejectedList) {
+			if (item.companyName === cardInfo.companyName) {
+				isDuplicate = true;
+				break;
+			}
+		}
+
+		if (moveItem) {
+			moveItem.statusBtn = "rejected";
+			rejectedList.push(moveItem);
+		} else if (availableData && !isDuplicate) {
+			cardInfo.statusBtn = "rejected";
+			rejectedList.push(cardInfo);
+		}
+
+		parentNode.classList.remove("interview-border");
+		parentNode.classList.add("rejected-border");
+		parentNode.querySelector(".status-btn").className =
+			"status-btn btn font-medium text-sm uppercase mb-2 btn-outline btn-error";
+		parentNode.querySelector(".status-btn").innerText = "rejected";
+
+		updateToggle();
+	}
+}
+
+cardContainer.addEventListener("click", cardsContain);
+filterSection.addEventListener("click", cardsContain);
