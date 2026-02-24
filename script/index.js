@@ -108,3 +108,18 @@ function checkFilterEmpty(list) {
 		return true;
 	}
 }
+
+function updateToggle() {
+	if (interviewBtn.classList.contains("btn-primary")) {
+		renderFilter(interviewList);
+		count("interview");
+	} else if (rejectedBtn.classList.contains("btn-primary")) {
+		renderFilter(rejectedList);
+		count("rejected");
+	} else {
+		filterSection.classList.add("hidden");
+		cardContainer.classList.remove("hidden");
+		count("all");
+		checkCardContainer();
+	}
+}
