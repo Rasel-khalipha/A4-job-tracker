@@ -43,7 +43,44 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body  class="bg-[#F8FAFC]">
+		<header id="header-area" class="max-w-[1110px] pt-[60px] mx-auto">
+			<h2
+				class="font-bold text-3xl text-center md:text-left md:text-[2rem] leading-8 text-[#002c5c] pb-5"
+			>
+				Job Application Tracker
+			</h2>
+			<section
+				class="grid grid-cols-1 md:grid-cols-3 gap-[16px] md:w-full w-11/12 mx-auto pb-[30px]"
+			>
+				<div
+					class="max-w-full md:max-w-[359.33px] p-5 bg-white rounded-lg shadow-sm text-center md:text-left"
+				>
+					<p class="font-medium text-sm text-[#323B49]">Total</p>
+					<h3 class="total-count font-bold text-2xl text-[#002C5C] pt-2">0</h3>
+				</div>
+				<div
+					class="max-w-full md:max-w-[359.33px] p-5 bg-white rounded-lg shadow-sm text-center md:text-left"
+				>
+					<p class="font-medium text-sm text-[#323B49]">Interview</p>
+					<h3 id="interview-count" class="font-bold text-2xl text-success pt-2">
+						0
+					</h3>
+				</div>
+				<div
+					class="max-w-full md:max-w-[359.33px] p-5 bg-white rounded-lg shadow-sm text-center md:text-left"
+				>
+					<p class="font-medium text-sm text-[#323B49]">Rejected</p>
+					<h3
+						id="rejected-count"
+						class="font-bold text-2xl text-secondary pt-2"
+					>
+						0
+					</h3>
+				</div>
+			</section>
+			<hr class="h-[1px] border-[#E6E7E9]" />
+		</header>
 		<script src="./script/index.js"></script>
 	</body>
 </html>
