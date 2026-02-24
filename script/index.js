@@ -256,3 +256,72 @@ function cardsContain(event) {
 
 cardContainer.addEventListener("click", cardsContain);
 filterSection.addEventListener("click", cardsContain);
+
+
+function renderFilter(list) {
+	if (checkFilterEmpty(list)) {
+		return;
+	}
+	filterSection.innerHTML = "";
+
+	for (let item of list) {
+		console.log(item);
+		const div = document.createElement("div");
+
+		div.className =
+			"cards bg-white rounded-lg shadow p-6 flex justify-between mb-4";
+
+		if (item.statusBtn === "interview") {
+			div.classList.add("interview-border");
+		} else if (item.statusBtn === "rejected") {
+			div.classList.add("rejected-border");
+		}
+
+		div.innerHTML = `
+			<div class="">
+					<h2 class="company-name font-semibold text-lg text-[#002C5C] mb-1">
+						${item.companyName}
+					</h2>
+					<p class="position font-normal text-base text-[#64748B] mb-5">
+						${item.position}
+					</p>
+					<p class="font-normal text-sm text-[#64748B] mb-5">
+						<span class="location">${item.location}</span> •
+						<span class="type">${item.type}</span> •
+						<span class="salary">${item.salary}</span>
+					</p>
+					<button class="status-btn btn font-medium text-sm uppercase mb-2 ${item.statusBtn === "interview" ? "btn-outline btn-success" : "btn-outline btn-error"}">
+						 ${item.statusBtn}
+					</button>
+
+					<p class="description font-normal text-sm text-[#323B49]">
+						${item.para}
+					</p>
+					<div class="flex gap-2 mt-5">
+						<button
+							class="interview btn btn-outline btn-success uppercase font-semibold text-sm"
+						>
+							interview
+						</button>
+						<button
+							class="rejected btn btn-outline btn-error uppercase font-semibold text-sm"
+						>
+							Rejected
+						</button>
+					</div>
+				</div>
+				<div class="delete-btn">
+					<a
+						class="w-8 h-8 border border-[#F1F2F4] rounded-full inline-flex items-center justify-center text-[#64748B]"
+						href="#"
+					>
+						<i class="fa-regular fa-trash-can"> </i>
+					</a>
+				</div> 
+			
+			`;
+		filterSection.appendChild(div);
+		console.log(div);
+	}
+}
+
