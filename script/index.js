@@ -33,3 +33,34 @@ function count(activeType = "all") {
 	}
 }
 count();
+
+// Toggle button area
+function toggleStyle(id) {
+	const buttons = [allBtn, interviewBtn, rejectedBtn];
+
+	for (const btn of buttons) {
+		if (btn.id === id) {
+			btn.classList.add("btn-primary");
+			btn.classList.remove("btn-soft");
+		} else {
+			btn.classList.remove("btn-primary");
+			btn.classList.add("btn-soft");
+		}
+	}
+	if (id === "interview-btn") {
+		cardContainer.classList.add("hidden");
+		filterSection.classList.remove("hidden");
+		renderFilter(interviewList);
+		count("interview");
+	} else if (id === "rejected-btn") {
+		cardContainer.classList.add("hidden");
+		filterSection.classList.remove("hidden");
+		renderFilter(rejectedList);
+		count("rejected");
+	} else {
+		filterSection.classList.add("hidden");
+		cardContainer.classList.remove("hidden");
+		count("all");
+		checkCardContainer();
+	}
+}
