@@ -15,3 +15,21 @@ const cardContainer = document.getElementById("card-container");
 const filterSection = document.getElementById("filter-section");
 
 const dynamicData = document.querySelector(".available .right");
+
+function count(activeType = "all") {
+	let totalJobs = cardContainer.querySelectorAll(".cards").length;
+	for (let total of totalCount) {
+		total.innerText = totalJobs;
+	}
+	interviewCount.innerText = interviewList.length;
+	rejectedCount.innerText = rejectedList.length;
+
+	if (activeType === "all") {
+		dynamicData.innerHTML = `<p><span class="total-count">${totalJobs}</span> jobs</p>`;
+	} else if (activeType === "interview") {
+		dynamicData.innerHTML = `<p class="dynamic"><span class="text-success">${interviewList.length}</span> of &nbsp;</p><p><span class="total-count">${totalJobs}</span> jobs</p>`;
+	} else if (activeType === "rejected") {
+		dynamicData.innerHTML = `<p class="dynamic"><span class="text-secondary">${rejectedList.length}</span> of &nbsp;</p><p><span class="total-count">${totalJobs}</span> jobs</p>`;
+	}
+}
+count();
